@@ -18,6 +18,7 @@ const schema = yup.object().shape({
 const Form = () => {
   const [data, setData] = useState([]);
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [emptyData, setEmptyData] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -50,7 +51,7 @@ const Form = () => {
       .catch(err => {
         setErrors({
           ...errors,
-          [e.target.name]: err.errors
+          [e.target.name]: err.errors[0]
         });
       });
   };
@@ -72,8 +73,8 @@ const Form = () => {
     axios
       .post("https://reqres.in/api/users", userInfo)
       .then(res => {
-        setData(res.data);
-        console.log(res.data);
+        setData([...data, res.data]);
+        setEmptyData(true);
         setUserInfo({
           name: "",
           email: "",
@@ -83,52 +84,68 @@ const Form = () => {
       })
       .catch(err => console.log(err));
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">
-        Name
-        <input
-          type="text"
-          id="name"
-          name="name"
-          onChange={handleChange}
-          value={userInfo.name}
-        />
-      </label>
-      Email
-      <label htmlFor="email">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          onChange={handleChange}
-          value={userInfo.email}
-        />
-      </label>
-      Password
-      <label htmlFor="password">
-        <input
-          type="password"
-          id="pasword"
-          name="password"
-          onChange={handleChange}
-          value={userInfo.password}
-        />
-      </label>
-      <label htmlFor="terms">
-        <input
-          type="checkbox"
-          id="terms"
-          name="terms"
-          onChange={handleChange}
-          value={userInfo.terms}
-        />
-        Terms of Service
-      </label>
-      <button type="submit" disabled={btnDisabled}>
-        Submit
-      </button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">
+          Name
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={handleChange}
+            value={userInfo.name}
+          />
+          {errors.name && <p>{errors.name}</p>}
+        </label>
+        Email
+        <label htmlFor="email">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={handleChange}
+            value={userInfo.email}
+          />
+          {errors.email && <p>{errors.email}</p>}
+        </label>
+        Password
+        <label htmlFor="password">
+          <input
+            type="password"
+            id="pasword"
+            name="password"
+            onChange={handleChange}
+            value={userInfo.password}
+          />
+          {errors.password && <p>{errors.password}</p>}
+        </label>
+        <label htmlFor="terms">
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            onChange={handleChange}
+            value={userInfo.terms}
+          />
+          Terms of Service
+        </label>
+        <button type="submit" disabled={btnDisabled}>
+          Submit
+        </button>
+      </form>
+
+      {emptyData ? (
+        <div className="dispay-info">
+          {data.map((user, i) => (
+            <div key={i}>{JSON.stringify(user)}</div>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 
