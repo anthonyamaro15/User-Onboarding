@@ -44,11 +44,25 @@ button {
     label {
       display: block;
       margin: 0.5rem 0;
+
+      #role {
+        border: 1px solid red;
+        margin-top: 0.5rem;
+        color: #333;
+        border: 1px solid rgb(216, 209, 209);
+      }
     }
 
     .error {
       padding: 0.2rem 0 0.6rem 0.5rem;
       color: red;
+    }
+
+    select {
+      display: block;
+      padding-top: 0.5rem;
+      font-size: 1rem;
+      outline: none;
     }
 
     button {

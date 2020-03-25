@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
 
+const fakeEmails = ["example@gmail.com", "anthony@gmail.com", "lalo@gmail.com"];
+
 const schema = yup.object().shape({
   name: yup.string().required("please enter name"),
   email: yup
     .string()
+    .lowercase()
     .email("invalid email")
+    .notOneOf(fakeEmails, "Email is already taken")
     .required("please enter email"),
   password: yup
     .string()
     .min(4, "password must be longer")
     .required("please enter password"),
-  terms: yup.boolean().oneOf([true], "please agree to terms and conditions")
+  terms: yup.boolean().oneOf([true], "please agree to terms and conditions"),
+  role: yup.string().required("please select a positon")
 });
 
 const Form = () => {
@@ -23,13 +28,15 @@ const Form = () => {
     name: "",
     email: "",
     password: "",
-    terms: ""
+    terms: "",
+    role: ""
   });
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     password: "",
-    terms: ""
+    terms: "",
+    role: ""
   });
 
   useEffect(() => {
@@ -79,7 +86,8 @@ const Form = () => {
           name: "",
           email: "",
           password: "",
-          terms: ""
+          terms: "",
+          role: ""
         });
       })
       .catch(err => console.log(err));
@@ -120,6 +128,15 @@ const Form = () => {
             value={userInfo.password}
           />
           {errors.password && <p className="error">{errors.password}</p>}
+        </label>
+        <label htmlFor="role">
+          Select Role
+          <select name="role" id="role" onChange={handleChange}>
+            <option value="">Enter Positon</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+          </select>
+          {errors.role && <p className="error">{errors.role}</p>}
         </label>
         <label htmlFor="terms">
           <input
