@@ -97,7 +97,7 @@ const Form = () => {
             onChange={handleChange}
             value={userInfo.name}
           />
-          {errors.name && <p>{errors.name}</p>}
+          {errors.name && <p className="error">{errors.name}</p>}
         </label>
         Email
         <label htmlFor="email">
@@ -108,7 +108,7 @@ const Form = () => {
             onChange={handleChange}
             value={userInfo.email}
           />
-          {errors.email && <p>{errors.email}</p>}
+          {errors.email && <p className="error">{errors.email}</p>}
         </label>
         Password
         <label htmlFor="password">
@@ -119,7 +119,7 @@ const Form = () => {
             onChange={handleChange}
             value={userInfo.password}
           />
-          {errors.password && <p>{errors.password}</p>}
+          {errors.password && <p className="error">{errors.password}</p>}
         </label>
         <label htmlFor="terms">
           <input
@@ -137,9 +137,11 @@ const Form = () => {
       </form>
 
       {emptyData ? (
-        <div className="dispay-info">
+        <div>
           {data.map((user, i) => (
-            <div key={i}>{JSON.stringify(user)}</div>
+            <div className="display-info" key={i}>
+              {JSON.stringify(user, null, 2)}
+            </div>
           ))}
         </div>
       ) : (
