@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #333;
+  font-family: "Open Sans", sans-serif;
+}
+input {
+  display: block;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid rgb(216, 209, 209);
+}
+
+button {
+  display: block;
+  outline: none;
+}
+
+.app {
+  form {
+    width: 350px;
+    margin: 5rem auto;
+    border: 1px solid rgb(216, 209, 209);
+    border-radius: 5px;
+    padding: 1rem;
+
+    input {
+      width: 100%;
+      font-size: 1.1rem;
+      padding: 0.2rem;
+
+      &:last-child {
+        display: inline-block;
+        margin: 0.5rem 0;
+      }
+    }
+
+    label {
+      display: block;
+      margin: 0.5rem 0;
+
+      #role {
+        border: 1px solid red;
+        margin-top: 0.5rem;
+        color: #333;
+        border: 1px solid rgb(216, 209, 209);
+      }
+    }
+
+    .error {
+      padding: 0.2rem 0 0.6rem 0.5rem;
+      color: red;
+    }
+
+    select {
+      display: block;
+      padding-top: 0.5rem;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      width: 50%;
+      margin: 1rem auto 0;
+      font-size: 1.1rem;
+      padding: 0.2rem 2rem;
+      border-radius: 5px;
+      border: 1px solid rgb(201, 196, 196);
+      cursor: pointer;
+      color: #333;
+
+      &:disabled {
+        color: grey;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .display-info {
+    width: 50%;
+    margin: 0 auto 1rem;
+    border-radius: 5px;
+    padding: 1rem;
+    border: 1px solid rgb(216, 209, 209);
+  }
+}
