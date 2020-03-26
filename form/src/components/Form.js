@@ -144,7 +144,7 @@ const Form = () => {
             id="terms"
             name="terms"
             onChange={handleChange}
-            value={userInfo.terms}
+            checked={userInfo.terms}
           />
           Terms of Service
         </label>
